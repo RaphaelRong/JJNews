@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64A650091802EBF6006E7AF9 /* JJNInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A650081802EBF6006E7AF9 /* JJNInfoCell.m */; };
+		64A6500C1802F9B8006E7AF9 /* JJNDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A6500B1802F9B8006E7AF9 /* JJNDetailViewController.m */; };
+		64A6500E1802FEB8006E7AF9 /* 20131007001.plist in Resources */ = {isa = PBXBuildFile; fileRef = 64A6500D1802FEB8006E7AF9 /* 20131007001.plist */; };
+		64A650111802FF65006E7AF9 /* NSArray+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A650101802FF65006E7AF9 /* NSArray+Util.m */; };
+		64A650131803016B006E7AF9 /* 20131007002.plist in Resources */ = {isa = PBXBuildFile; fileRef = 64A650121803016B006E7AF9 /* 20131007002.plist */; };
+		64A6501518030175006E7AF9 /* 20131007003.plist in Resources */ = {isa = PBXBuildFile; fileRef = 64A6501418030175006E7AF9 /* 20131007003.plist */; };
 		64AA8600180122F7008B5E85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AA85FF180122F7008B5E85 /* Foundation.framework */; };
 		64AA8602180122F7008B5E85 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AA8601180122F7008B5E85 /* CoreGraphics.framework */; };
 		64AA8604180122F7008B5E85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AA8603180122F7008B5E85 /* UIKit.framework */; };
@@ -21,6 +27,10 @@
 		64AA8621180122F7008B5E85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AA8603180122F7008B5E85 /* UIKit.framework */; };
 		64AA8629180122F7008B5E85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64AA8627180122F7008B5E85 /* InfoPlist.strings */; };
 		64AA862B180122F7008B5E85 /* JJNewsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AA862A180122F7008B5E85 /* JJNewsTests.m */; };
+		64AA8636180128C1008B5E85 /* navigationbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA8635180128C1008B5E85 /* navigationbar.png */; };
+		64AA863818012AD9008B5E85 /* title_name.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA863718012AD9008B5E85 /* title_name.png */; };
+		64AB7DD01801B0580079B431 /* title_ad_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AB7DCF1801B0580079B431 /* title_ad_image.png */; };
+		64AB7DD5180254850079B431 /* infoList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 64AB7DD4180254850079B431 /* infoList.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +44,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		64A650071802EBF6006E7AF9 /* JJNInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJNInfoCell.h; sourceTree = "<group>"; };
+		64A650081802EBF6006E7AF9 /* JJNInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJNInfoCell.m; sourceTree = "<group>"; };
+		64A6500A1802F9B8006E7AF9 /* JJNDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJNDetailViewController.h; sourceTree = "<group>"; };
+		64A6500B1802F9B8006E7AF9 /* JJNDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJNDetailViewController.m; sourceTree = "<group>"; };
+		64A6500D1802FEB8006E7AF9 /* 20131007001.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 20131007001.plist; sourceTree = "<group>"; };
+		64A6500F1802FF65006E7AF9 /* NSArray+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Util.h"; sourceTree = "<group>"; };
+		64A650101802FF65006E7AF9 /* NSArray+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Util.m"; sourceTree = "<group>"; };
+		64A650121803016B006E7AF9 /* 20131007002.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 20131007002.plist; sourceTree = "<group>"; };
+		64A6501418030175006E7AF9 /* 20131007003.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 20131007003.plist; sourceTree = "<group>"; };
 		64AA85FC180122F7008B5E85 /* JJNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JJNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64AA85FF180122F7008B5E85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		64AA8601180122F7008B5E85 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,6 +72,10 @@
 		64AA8626180122F7008B5E85 /* JJNewsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JJNewsTests-Info.plist"; sourceTree = "<group>"; };
 		64AA8628180122F7008B5E85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		64AA862A180122F7008B5E85 /* JJNewsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JJNewsTests.m; sourceTree = "<group>"; };
+		64AA8635180128C1008B5E85 /* navigationbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar.png; sourceTree = "<group>"; };
+		64AA863718012AD9008B5E85 /* title_name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_name.png; sourceTree = "<group>"; };
+		64AB7DCF1801B0580079B431 /* title_ad_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_ad_image.png; sourceTree = "<group>"; };
+		64AB7DD4180254850079B431 /* infoList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = infoList.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +135,8 @@
 		64AA8605180122F7008B5E85 /* JJNews */ = {
 			isa = PBXGroup;
 			children = (
+				64AB7DD1180254410079B431 /* plist */,
+				64AA863418012824008B5E85 /* resource */,
 				64AA860E180122F7008B5E85 /* JJNAppDelegate.h */,
 				64AA860F180122F7008B5E85 /* JJNAppDelegate.m */,
 				64AA8611180122F7008B5E85 /* Main.storyboard */,
@@ -119,6 +144,12 @@
 				64AA8615180122F7008B5E85 /* JJNViewController.m */,
 				64AA8617180122F7008B5E85 /* Images.xcassets */,
 				64AA8606180122F7008B5E85 /* Supporting Files */,
+				64A650071802EBF6006E7AF9 /* JJNInfoCell.h */,
+				64A650081802EBF6006E7AF9 /* JJNInfoCell.m */,
+				64A6500A1802F9B8006E7AF9 /* JJNDetailViewController.h */,
+				64A6500B1802F9B8006E7AF9 /* JJNDetailViewController.m */,
+				64A6500F1802FF65006E7AF9 /* NSArray+Util.h */,
+				64A650101802FF65006E7AF9 /* NSArray+Util.m */,
 			);
 			path = JJNews;
 			sourceTree = "<group>";
@@ -150,6 +181,27 @@
 				64AA8627180122F7008B5E85 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		64AA863418012824008B5E85 /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				64AB7DCF1801B0580079B431 /* title_ad_image.png */,
+				64AA863718012AD9008B5E85 /* title_name.png */,
+				64AA8635180128C1008B5E85 /* navigationbar.png */,
+			);
+			name = resource;
+			sourceTree = "<group>";
+		};
+		64AB7DD1180254410079B431 /* plist */ = {
+			isa = PBXGroup;
+			children = (
+				64A6500D1802FEB8006E7AF9 /* 20131007001.plist */,
+				64AB7DD4180254850079B431 /* infoList.plist */,
+				64A650121803016B006E7AF9 /* 20131007002.plist */,
+				64A6501418030175006E7AF9 /* 20131007003.plist */,
+			);
+			name = plist;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,9 +281,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64A650131803016B006E7AF9 /* 20131007002.plist in Resources */,
+				64AB7DD01801B0580079B431 /* title_ad_image.png in Resources */,
 				64AA8618180122F7008B5E85 /* Images.xcassets in Resources */,
+				64A6500E1802FEB8006E7AF9 /* 20131007001.plist in Resources */,
+				64AA8636180128C1008B5E85 /* navigationbar.png in Resources */,
 				64AA860A180122F7008B5E85 /* InfoPlist.strings in Resources */,
+				64AA863818012AD9008B5E85 /* title_name.png in Resources */,
 				64AA8613180122F7008B5E85 /* Main.storyboard in Resources */,
+				64A6501518030175006E7AF9 /* 20131007003.plist in Resources */,
+				64AB7DD5180254850079B431 /* infoList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +311,10 @@
 			files = (
 				64AA860C180122F7008B5E85 /* main.m in Sources */,
 				64AA8616180122F7008B5E85 /* JJNViewController.m in Sources */,
+				64A650111802FF65006E7AF9 /* NSArray+Util.m in Sources */,
+				64A6500C1802F9B8006E7AF9 /* JJNDetailViewController.m in Sources */,
 				64AA8610180122F7008B5E85 /* JJNAppDelegate.m in Sources */,
+				64A650091802EBF6006E7AF9 /* JJNInfoCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +523,7 @@
 				64AA8630180122F7008B5E85 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		64AA8631180122F7008B5E85 /* Build configuration list for PBXNativeTarget "JJNewsTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +532,7 @@
 				64AA8633180122F7008B5E85 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
