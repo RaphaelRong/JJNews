@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JJNViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+@interface JJNViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *indexTitleLabel;
 @property (weak, nonatomic) IBOutlet UIPageControl *indexControl;

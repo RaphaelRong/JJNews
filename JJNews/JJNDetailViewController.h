@@ -10,6 +10,7 @@
 
 @interface JJNDetailViewController : UIViewController
 
+@property (nonatomic, strong) NSArray *detailList;
 @property (nonatomic, strong) NSString *detialPlistName;
 @property (weak, nonatomic) IBOutlet UIScrollView *detailScrollView;
 

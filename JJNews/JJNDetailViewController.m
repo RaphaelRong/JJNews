@@ -8,6 +8,8 @@
 
 #import "JJNDetailViewController.h"
 #import "NSArray+Util.h"
+#import "UIImageView+WebCache.h"
+#import "Constant.h"
 
 @interface JJNDetailViewController ()
 
@@ -16,6 +18,7 @@
 @end
 
 @implementation JJNDetailViewController
+
 - (IBAction)backBarButton:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -24,7 +27,7 @@
 {
     [super viewDidLoad];
     
-    self.infoList = [[NSArray alloc] initArrayWithPlistName:self.detialPlistName];
+    self.infoList = self.detailList;
     
     self.detailScrollView.contentSize = CGSizeMake(self.infoList.count * 320, self.view.frame.size.height - 64);
     
@@ -39,11 +42,12 @@
         NSString *image = [dict objectForKey:@"image"];
         
         UILabel *aLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelFrame.origin.x + (320 * i), labelFrame.origin.y, labelFrame.size.width, labelFrame.size.height)];
-        UITextView *aText = [[UITextView alloc] initWithFrame:CGRectMake(textFrame.origin.x + (320 * i), textFrame.origin.y, textFrame.size.width, textFrame.size.height)];
+        UITextView *aText = [[UITextView alloc] initWithFrame:CGRectMake(textFrame.origin.x + (320 * i), textFrame.origin.y, textFrame.size.width, textFrame.size.height - (IS_IOS7 ? 64 : 44))];
+        aText.editable = NO;
         UIImageView *aImage = [[UIImageView alloc] initWithFrame:CGRectMake(imageFrame.origin.x + (320 * i), imageFrame.origin.y, imageFrame.size.width, imageFrame.size.height)];
         aLabel.text = title;
         aText.text = detail;
-        [aImage setImage:[UIImage imageNamed:image]];
+        [aImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@image/%@", URL, image]] placeholderImage:[UIImage imageNamed:@"title_name.png"]];
         
         [self.detailScrollView addSubview:aLabel];
         [self.detailScrollView addSubview:aText];

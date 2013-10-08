@@ -6,20 +6,29 @@
 //  Copyright (c) 2013年 Raphael. All rights reserved.
 //
 
+#import <SystemConfiguration/CaptiveNetwork.h>
 #import "JJNViewController.h"
 #import "JJNInfoCell.h"
 #import "NSArray+Util.h"
 #import "JJNDetailViewController.h"
+#import "Constant.h"
+#import "JJNLoadingViewController.h"
 
 @interface JJNViewController ()
 
 @property (nonatomic) BOOL pageControlBeingUsed;
 @property (nonatomic, strong) NSArray *infoList;
 @property (nonatomic, strong) NSString *selectInfoFileName;
+@property (nonatomic, strong) NSArray *detailList;
+@property (nonatomic, strong) JJNLoadingViewController *loadingIndicatorView;
 
 @end
 
 @implementation JJNViewController
+
+dispatch_queue_t checkVersionQueue;
+dispatch_queue_t checkLatestInfo;
+dispatch_queue_t checkDetailQueue;
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     if (!_pageControlBeingUsed) {
@@ -30,6 +39,21 @@
     }
 }
 
+- (id)fetchSSIDInfo
+{
+    NSArray *ifs = (id)CFBridgingRelease(CNCopySupportedInterfaces());
+    NSLog(@"%s: Supported interfaces: %@", __func__, ifs);
+    id info = nil;
+    for (NSString *ifnam in ifs) {
+        info = (id)CFBridgingRelease(CNCopyCurrentNetworkInfo((CFStringRef)CFBridgingRetain(ifnam)));
+        NSLog(@"%s: %@ => %@", __func__, ifnam, info);
+        if (info && [info count]) {
+            break;
+        }
+    }
+    return info;
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     _pageControlBeingUsed = NO;
 }
@@ -38,10 +62,35 @@
     _pageControlBeingUsed = NO;
 }
 
+- (void)showLoading
+{
+    if (self.loadingIndicatorView == nil)
+    {
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.loadingIndicatorView = [board instantiateViewControllerWithIdentifier:@"JJNLoadingViewController"];
+        CGRect frame = self.loadingIndicatorView.view.frame;
+        frame.origin = CGPointMake(0, 0);
+        self.loadingIndicatorView.view.frame = frame;
+    }
+    self.view.userInteractionEnabled = NO;
+    self.navigationController.navigationBar.userInteractionEnabled = NO;
+    self.loadingIndicatorView.view.layer.zPosition = 1000;
+    [self.view addSubview:self.loadingIndicatorView.view];
+}
+
+
+- (void)hideLoading
+{
+    self.view.userInteractionEnabled = YES;
+    self.navigationController.navigationBar.userInteractionEnabled = YES;
+    [self.loadingIndicatorView.view removeFromSuperview];
+    self.loadingIndicatorView = nil;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self fetchSSIDInfo];
     UIView *titleBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     titleBackView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"navigationbar.png"]];
     
@@ -62,34 +111,191 @@
     self.indexScrollView.contentSize = CGSizeMake(640, 120);
     self.indexScrollView.delegate = self;
     
-    self.infoList = [[NSArray alloc] initArrayWithPlistName:@"infoList"];
-    
     self.indexControl.currentPage = 0;
     self.indexControl.numberOfPages = 2;
     
     self.indexTable.delegate = self;
     self.indexTable.dataSource = self;
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    checkVersionQueue = dispatch_queue_create("versionQueue", NULL);
+    [self showLoading];
+    dispatch_async(checkVersionQueue, ^{
+        [self getLatestVersion];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self checkIsLatestVersion]) {
+                
+                if ([self checkIsLatestNews]) {
+                    [self hideLoading];
+                }
+            }
+        });
+    });
+    
+    
+}
+
+- (void)getInfoFromFile
+{
+    
+    NSString *indexInfoFilePath = [LOCAL_DOCUMENT stringByAppendingPathComponent:INDEX_INFO];
+    self.infoList = [NSArray arrayWithContentsOfFile:indexInfoFilePath];
+    
+    [self.indexTable reloadData];
+}
+
+- (BOOL)checkIsLatestVersion
+{
+    NSString *versionInfoFilePath = [LOCAL_DOCUMENT stringByAppendingPathComponent:INDEX_VERSION];
+    NSDictionary *versionDict = [NSDictionary dictionaryWithContentsOfFile:versionInfoFilePath];
+    
+    NSString *currentVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"version"];
+    NSString *latestVersion = [versionDict objectForKey:@"version"];
+    
+    if (currentVersion == nil || ![currentVersion isEqualToString:latestVersion]) {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的客户端不是最新版本，是否现在去App Store更新？" delegate:self
+                                              cancelButtonTitle:@"退出" otherButtonTitles:@"去更新", nil];
+        [alert show];
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)checkIsLatestNews
+{
+    
+    NSString *versionInfoFilePath = [LOCAL_DOCUMENT stringByAppendingPathComponent:INDEX_VERSION];
+    NSDictionary *versionDict = [NSDictionary dictionaryWithContentsOfFile:versionInfoFilePath];
+    
+    NSString *currentInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastInfo"];
+    NSString *lastInfo = [versionDict objectForKey:@"lastInfo"];
+    
+    if (currentInfo == nil || ![currentInfo isEqualToString:lastInfo]) {
+        checkLatestInfo = dispatch_queue_create("latestInfo", NULL);
+        dispatch_async(checkLatestInfo, ^{
+            [self getLatestInfo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self getInfoFromFile];
+                [self hideLoading];
+                
+            });
+        });
+        return NO;
+    }
+    return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            exit(0);
+            break;
+        case 1:
+            NSLog(@"button 2");
+            break;
+        default:
+            break;
+    }
+}
+
+
+- (void)getLatestVersion
+{
+    NSURL *versionInfoUrl=[NSURL URLWithString:INDEX_VERSION_URL];
+    
+    NSData *versionInfoUrlFile = [[NSData alloc] initWithContentsOfURL:versionInfoUrl];
+    
+    NSString *versionInfoFilePath = [LOCAL_DOCUMENT stringByAppendingPathComponent:INDEX_VERSION];
+    
+    [versionInfoUrlFile writeToFile:versionInfoFilePath atomically:YES];
+    
+}
+
+- (void)getLatestInfo
+{
+    NSURL *indexInfoUrl=[NSURL URLWithString:INDEX_INFO_URL];
+    
+    NSData *indexInfoUrlFile = [[NSData alloc] initWithContentsOfURL:indexInfoUrl];
+    
+    NSString *indexInfoFilePath = [LOCAL_DOCUMENT stringByAppendingPathComponent:INDEX_INFO];
+    
+    [indexInfoUrlFile writeToFile:indexInfoFilePath atomically:YES];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([@"fromIndexToDetail" isEqualToString: segue.identifier]) {
         JJNDetailViewController *jdvc = (JJNDetailViewController *)segue.destinationViewController;
-        jdvc.detialPlistName = self.selectInfoFileName;
+        jdvc.detailList = self.detailList;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dict = [self.infoList objectAtIndex:indexPath.row];
-    self.selectInfoFileName = [dict objectForKey:@"target"];
+    NSString *fileName = [dict objectForKey:@"target"];
     
-    [self performSegueWithIdentifier:@"fromIndexToDetail" sender:self];
+    [self checkDetailArrayWithFileName:[NSString stringWithFormat:@"%@.plist", fileName]];
+    
+}
+
+- (NSArray *)getDetailArrayWithFileName:(NSString *)fileName
+{
+    NSString *detailFilePath = [LOCAL_DOCUMENT stringByAppendingPathComponent:fileName];
+    return [NSArray arrayWithContentsOfFile:detailFilePath];
+}
+
+- (void)downloadDetailArrayWithFileName:(NSString *)fileName
+{
+    
+    NSURL *detailInfoUrl=[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", URL, fileName]];
+    
+    NSData *detailInfoUrlFile = [[NSData alloc] initWithContentsOfURL:detailInfoUrl];
+    
+    NSString *detailInfoFilePath = [LOCAL_DOCUMENT stringByAppendingPathComponent:fileName];
+    
+    [detailInfoUrlFile writeToFile:detailInfoFilePath atomically:YES];
+}
+
+- (void)checkDetailArrayWithFileName:(NSString *)fileName
+{
+    NSArray *detailArray = [self getDetailArrayWithFileName:fileName];
+    
+    if (detailArray == nil) {
+        
+        checkDetailQueue = dispatch_queue_create("detailQueue", NULL);
+        [self showLoading];
+        dispatch_async(checkDetailQueue, ^{
+            [self downloadDetailArrayWithFileName:fileName];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSArray *details = [self getDetailArrayWithFileName:fileName];
+                [self hideLoading];
+                
+                if (details == nil || details.count < 1) {
+                    NSLog(@"ERROR: no details");
+                    return;
+                }
+                
+                self.detailList = details;
+                [self performSegueWithIdentifier:@"fromIndexToDetail" sender:self];
+            });
+        });
+    } else {
+        self.detailList = detailArray;
+        [self performSegueWithIdentifier:@"fromIndexToDetail" sender:self];
+    }
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -111,7 +317,7 @@
 }
 
 - (IBAction)pageTouched:(UIPageControl *)sender {
-    int pageNum = sender.currentPage;
+    NSInteger pageNum = sender.currentPage;
     
     [self.indexScrollView scrollRectToVisible:CGRectMake(pageNum * 320, 0, 320, 140) animated:YES];
 }
