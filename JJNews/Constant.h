@@ -9,8 +9,8 @@
 #ifndef JJNews_Constant_h
 #define JJNews_Constant_h
 
-#define URL                 @"http://192.168.2.51:8888/"
-//#define URL                 @”116.236.229.45:8888"
+//#define URL                 @"http://192.168.2.51:8888/"
+#define URL                 @"http://116.236.229.45:8888/"
 
 #define INDEX_VERSION       @"version.plist"
 #define INDEX_INFO          @"infoList.plist"

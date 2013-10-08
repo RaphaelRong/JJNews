@@ -14,6 +14,7 @@
 @interface JJNDetailViewController ()
 
 @property (nonatomic, strong) NSArray *infoList;
+@property (nonatomic, strong) UIButton *fakeBackButton;
 
 @end
 
@@ -56,10 +57,15 @@
         i++;
     }
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [button addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationController.navigationBar addSubview:button];
+    self.fakeBackButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [self.fakeBackButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:self.fakeBackButton];
     
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self.fakeBackButton removeFromSuperview];
 }
 
 - (void)backButtonPressed:(id)sender
