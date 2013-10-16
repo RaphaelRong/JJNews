@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) NSArray *infoList;
 @property (nonatomic, strong) UIButton *fakeBackButton;
+@property (nonatomic, strong) UILabel *buttonPageLabel;
 
 @end
 
@@ -24,6 +25,13 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)sender {
+    
+    CGFloat pageWidth = self.detailScrollView.frame.size.width;
+    int page = floor((self.detailScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 2;
+    self.buttonPageLabel.text = [NSString stringWithFormat:@"%i/%i", page, self.infoList.count];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -31,6 +39,7 @@
     self.infoList = self.detailList;
     
     self.detailScrollView.contentSize = CGSizeMake(self.infoList.count * 320, self.view.frame.size.height - 64);
+    self.detailScrollView.delegate = self;
     
     CGRect labelFrame = self.positionLabel.frame;
     CGRect imageFrame = self.positionImage.frame;
@@ -60,11 +69,16 @@
     self.fakeBackButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [self.fakeBackButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationController.navigationBar addSubview:self.fakeBackButton];
-    
+    self.buttonPageLabel = [[UILabel alloc] initWithFrame:CGRectMake(260, 0, 50, 44)];
+    self.buttonPageLabel.textColor = [UIColor whiteColor];
+    self.buttonPageLabel.textAlignment = NSTextAlignmentRight;
+    self.buttonPageLabel.text = [NSString stringWithFormat:@"1/%i", self.infoList.count];
+    [self.navigationController.navigationBar addSubview:self.buttonPageLabel];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [self.buttonPageLabel removeFromSuperview];
     [self.fakeBackButton removeFromSuperview];
 }
 
