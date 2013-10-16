@@ -48,7 +48,7 @@
         UIImageView *aImage = [[UIImageView alloc] initWithFrame:CGRectMake(imageFrame.origin.x + (320 * i), imageFrame.origin.y, imageFrame.size.width, imageFrame.size.height)];
         aLabel.text = title;
         aText.text = detail;
-        [aImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@image/%@", URL, image]] placeholderImage:[UIImage imageNamed:@"title_name.png"]];
+        [aImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@image/%@", self.urlStringPre, image]] placeholderImage:[UIImage imageNamed:@"title_name.png"]];
         
         [self.detailScrollView addSubview:aLabel];
         [self.detailScrollView addSubview:aText];

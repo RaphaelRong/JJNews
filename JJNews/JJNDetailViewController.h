@@ -17,4 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *positionImage;
 @property (weak, nonatomic) IBOutlet UILabel *positionLabel;
 @property (weak, nonatomic) IBOutlet UITextView *positionText;
+
+@property (nonatomic, strong) NSString *urlStringPre;
 @end

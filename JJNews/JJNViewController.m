@@ -13,6 +13,7 @@
 #import "JJNDetailViewController.h"
 #import "Constant.h"
 #import "JJNLoadingViewController.h"
+#import "UIImageView+WebCache.h"
 
 @interface JJNViewController ()
 
@@ -21,6 +22,12 @@
 @property (nonatomic, strong) NSString *selectInfoFileName;
 @property (nonatomic, strong) NSArray *detailList;
 @property (nonatomic, strong) JJNLoadingViewController *loadingIndicatorView;
+@property (nonatomic, strong) NSString *bannerImage;
+@property (nonatomic, strong) UIImageView *firstBannerView;
+@property (nonatomic, strong) UIImageView *secondBannerView;
+@property (nonatomic, strong) NSString *urlStringPer;
+@property (nonatomic, strong) NSString *urlIndexInfo;
+@property (nonatomic, strong) NSString *urlVersionInfo;
 
 @end
 
@@ -78,7 +85,6 @@ dispatch_queue_t checkDetailQueue;
     [self.view addSubview:self.loadingIndicatorView.view];
 }
 
-
 - (void)hideLoading
 {
     self.view.userInteractionEnabled = YES;
@@ -90,7 +96,13 @@ dispatch_queue_t checkDetailQueue;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self fetchSSIDInfo];
+    NSDictionary *ssidDict = [self fetchSSIDInfo];
+    NSString *ssid = [ssidDict objectForKey:@"SSID"];
+    self.urlStringPer = [@"JJIEC" isEqualToString:ssid] ? INNER_URL : OUTER_URL;
+    self.urlIndexInfo = [@"JJIEC" isEqualToString:ssid] ? INNER_INDEX_INFO_URL : OUTER_INDEX_INFO_URL;
+    self.urlVersionInfo = [@"JJIEC" isEqualToString:ssid] ? INNER_INDEX_VERSION_URL : OUTER_INDEX_VERSION_URL;
+    
+    
     UIView *titleBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     titleBackView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"navigationbar.png"]];
     
@@ -100,14 +112,12 @@ dispatch_queue_t checkDetailQueue;
     [self.navigationController.navigationBar addSubview:titleBackView];
     [self.navigationController.navigationBar addSubview:titleImageView];
     
-    
-    
-    UIImageView *firstImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_ad_image.png"]];
-    UIImageView *secondImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_ad_image.png"]];
-    firstImageView.frame = CGRectMake(0, 0, 320, 120);
-    secondImageView.frame = CGRectMake(320, 0, 320, 120);
-    [self.indexScrollView addSubview:firstImageView];
-    [self.indexScrollView addSubview:secondImageView];
+    self.firstBannerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_ad_image.png"]];
+    self.secondBannerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_ad_image.png"]];
+    self.firstBannerView.frame = CGRectMake(0, 0, 320, 120);
+    self.secondBannerView.frame = CGRectMake(320, 0, 320, 120);
+    [self.indexScrollView addSubview:self.firstBannerView];
+    [self.indexScrollView addSubview:self.secondBannerView];
     self.indexScrollView.contentSize = CGSizeMake(640, 120);
     self.indexScrollView.delegate = self;
     
@@ -170,12 +180,12 @@ dispatch_queue_t checkDetailQueue;
 
 - (BOOL)checkIsLatestNews
 {
-    
     NSString *versionInfoFilePath = [LOCAL_DOCUMENT stringByAppendingPathComponent:INDEX_VERSION];
     NSDictionary *versionDict = [NSDictionary dictionaryWithContentsOfFile:versionInfoFilePath];
     
     NSString *currentInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastInfo"];
     NSString *lastInfo = [versionDict objectForKey:@"lastInfo"];
+    NSString *bannerURL = [versionDict objectForKey:@"bannerImage"];
     
     if (currentInfo == nil || ![currentInfo isEqualToString:lastInfo]) {
         checkLatestInfo = dispatch_queue_create("latestInfo", NULL);
@@ -184,11 +194,16 @@ dispatch_queue_t checkDetailQueue;
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self getInfoFromFile];
+                [self.firstBannerView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@image/%@", self.urlStringPer, bannerURL]] placeholderImage:[UIImage imageNamed:@"title_ad_image.png"]];
+                [self.secondBannerView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@image/%@", self.urlStringPer, bannerURL]] placeholderImage:[UIImage imageNamed:@"title_ad_image.png"]];
+                [[NSUserDefaults standardUserDefaults] setObject:currentInfo forKey:@"lastInfo"];
                 [self hideLoading];
                 
             });
         });
         return NO;
+    } else {
+        [self getInfoFromFile];
     }
     return YES;
 }
@@ -210,7 +225,7 @@ dispatch_queue_t checkDetailQueue;
 
 - (void)getLatestVersion
 {
-    NSURL *versionInfoUrl=[NSURL URLWithString:INDEX_VERSION_URL];
+    NSURL *versionInfoUrl=[NSURL URLWithString:self.urlVersionInfo];
     
     NSData *versionInfoUrlFile = [[NSData alloc] initWithContentsOfURL:versionInfoUrl];
     
@@ -222,7 +237,7 @@ dispatch_queue_t checkDetailQueue;
 
 - (void)getLatestInfo
 {
-    NSURL *indexInfoUrl=[NSURL URLWithString:INDEX_INFO_URL];
+    NSURL *indexInfoUrl=[NSURL URLWithString:self.urlIndexInfo];
     
     NSData *indexInfoUrlFile = [[NSData alloc] initWithContentsOfURL:indexInfoUrl];
     
@@ -237,6 +252,7 @@ dispatch_queue_t checkDetailQueue;
     if ([@"fromIndexToDetail" isEqualToString: segue.identifier]) {
         JJNDetailViewController *jdvc = (JJNDetailViewController *)segue.destinationViewController;
         jdvc.detailList = self.detailList;
+        jdvc.urlStringPre = self.urlStringPer;
     }
 }
 
@@ -258,7 +274,7 @@ dispatch_queue_t checkDetailQueue;
 - (void)downloadDetailArrayWithFileName:(NSString *)fileName
 {
     
-    NSURL *detailInfoUrl=[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", URL, fileName]];
+    NSURL *detailInfoUrl=[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", self.urlStringPer, fileName]];
     
     NSData *detailInfoUrlFile = [[NSData alloc] initWithContentsOfURL:detailInfoUrl];
     
