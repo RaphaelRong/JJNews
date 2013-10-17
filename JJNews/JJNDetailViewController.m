@@ -29,7 +29,7 @@
     
     CGFloat pageWidth = self.detailScrollView.frame.size.width;
     int page = floor((self.detailScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 2;
-    self.buttonPageLabel.text = [NSString stringWithFormat:@"%i/%i", page, self.infoList.count];
+    self.buttonPageLabel.text = [NSString stringWithFormat:@"%i/%lu", page, (unsigned long)self.infoList.count];
 }
 
 - (void)viewDidLoad
@@ -72,7 +72,7 @@
     self.buttonPageLabel = [[UILabel alloc] initWithFrame:CGRectMake(260, 0, 50, 44)];
     self.buttonPageLabel.textColor = [UIColor whiteColor];
     self.buttonPageLabel.textAlignment = NSTextAlignmentRight;
-    self.buttonPageLabel.text = [NSString stringWithFormat:@"1/%i", self.infoList.count];
+    self.buttonPageLabel.text = [NSString stringWithFormat:@"1/%lu", (unsigned long)self.infoList.count];
     [self.navigationController.navigationBar addSubview:self.buttonPageLabel];
 }
 

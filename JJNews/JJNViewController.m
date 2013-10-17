@@ -112,10 +112,9 @@ dispatch_queue_t checkDetailQueue;
     [self.navigationController.navigationBar addSubview:titleBackView];
     [self.navigationController.navigationBar addSubview:titleImageView];
     
-    self.firstBannerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_ad_image.png"]];
-    self.secondBannerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_ad_image.png"]];
-    self.firstBannerView.frame = CGRectMake(0, 0, 320, 120);
-    self.secondBannerView.frame = CGRectMake(320, 0, 320, 120);
+    self.firstBannerView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 120)];
+    self.secondBannerView = [[UIImageView alloc] initWithFrame:CGRectMake(320, 0, 320, 120)];
+    
     [self.indexScrollView addSubview:self.firstBannerView];
     [self.indexScrollView addSubview:self.secondBannerView];
     self.indexScrollView.contentSize = CGSizeMake(640, 120);
@@ -185,7 +184,6 @@ dispatch_queue_t checkDetailQueue;
     
     NSString *currentInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastInfo"];
     NSString *lastInfo = [versionDict objectForKey:@"lastInfo"];
-    NSString *bannerURL = [versionDict objectForKey:@"bannerImage"];
     
     if (currentInfo == nil || ![currentInfo isEqualToString:lastInfo]) {
         checkLatestInfo = dispatch_queue_create("latestInfo", NULL);
@@ -194,6 +192,14 @@ dispatch_queue_t checkDetailQueue;
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self getInfoFromFile];
+                
+                NSString *versionInfoFilePath = [LOCAL_DOCUMENT stringByAppendingPathComponent:INDEX_VERSION];
+                NSDictionary *versionDict = [NSDictionary dictionaryWithContentsOfFile:versionInfoFilePath];
+                
+                NSString *currentInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastInfo"];
+                
+                NSString *bannerURL = [versionDict objectForKey:@"bannerImage"];
+                
                 [self.firstBannerView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@image/%@", self.urlStringPer, bannerURL]] placeholderImage:[UIImage imageNamed:@"title_ad_image.png"]];
                 [self.secondBannerView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@image/%@", self.urlStringPer, bannerURL]] placeholderImage:[UIImage imageNamed:@"title_ad_image.png"]];
                 [[NSUserDefaults standardUserDefaults] setObject:currentInfo forKey:@"lastInfo"];

@@ -41,19 +41,18 @@ NSString *const SDWebImageDownloadStopNotification = @"SDWebImageDownloadStopNot
     // To use it, just add #import "SDNetworkActivityIndicator.h" in addition to the SDWebImage import
     if (NSClassFromString(@"SDNetworkActivityIndicator"))
     {
-        
-        id activityIndicator = [NSClassFromString(@"SDNetworkActivityIndicator") performSelector:NSSelectorFromString(@"sharedActivityIndicator")];
-
-        // Remove observer in case it was previously added.
-        [[NSNotificationCenter defaultCenter] removeObserver:activityIndicator name:SDWebImageDownloadStartNotification object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:activityIndicator name:SDWebImageDownloadStopNotification object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:activityIndicator
-                                                 selector:NSSelectorFromString(@"startActivity")
-                                                     name:SDWebImageDownloadStartNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:activityIndicator
-                                                 selector:NSSelectorFromString(@"stopActivity")
-                                                     name:SDWebImageDownloadStopNotification object:nil];
+//        id activityIndicator = [NSClassFromString(@"SDNetworkActivityIndicator") performSelector:NSSelectorFromString(@"sharedActivityIndicator")];
+//
+//        // Remove observer in case it was previously added.
+//        [[NSNotificationCenter defaultCenter] removeObserver:activityIndicator name:SDWebImageDownloadStartNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] removeObserver:activityIndicator name:SDWebImageDownloadStopNotification object:nil];
+//
+//        [[NSNotificationCenter defaultCenter] addObserver:activityIndicator
+//                                                 selector:NSSelectorFromString(@"startActivity")
+//                                                     name:SDWebImageDownloadStartNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:activityIndicator
+//                                                 selector:NSSelectorFromString(@"stopActivity")
+//                                                     name:SDWebImageDownloadStopNotification object:nil];
     }
 
     SDWebImageDownloader *downloader = SDWIReturnAutoreleased([[SDWebImageDownloader alloc] init]);
