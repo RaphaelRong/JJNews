@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="ThE-5D-cQy">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
@@ -10,8 +10,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="ThE-5D-cQy" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" backIndicatorImage="navigationbar.png" id="WcY-mR-478">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" backIndicatorImage="navigationbar.png" backIndicatorTransitionMaskImage="navigationbar.png" id="WcY-mR-478">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -70,16 +69,17 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" id="gPs-Ac-aLK">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </scrollView>
                                             <view alpha="0.5" contentMode="scaleToFill" id="HPU-c0-aAM">
                                                 <rect key="frame" x="0.0" y="120" width="320" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="28y-5V-z4P">
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="28y-5V-z4P">
                                                         <rect key="frame" x="20" y="0.0" width="200" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -196,6 +196,15 @@
                                             </label>
                                         </subviews>
                                     </scrollView>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="Uno-Q5-GUK">
+                                        <rect key="frame" x="20" y="134" width="280" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="currentPageIndicatorTintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="pageControlPressed:" destination="dk2-tb-zZ7" eventType="valueChanged" id="bjn-Fx-88a"/>
+                                        </connections>
+                                    </pageControl>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -205,6 +214,7 @@
                     <navigationItem key="navigationItem" id="j5S-yi-PvN"/>
                     <connections>
                         <outlet property="detailScrollView" destination="R1k-hk-oFa" id="UP4-Zz-CnU"/>
+                        <outlet property="pageControl" destination="Uno-Q5-GUK" id="dLb-mu-P5D"/>
                         <outlet property="positionImage" destination="gAx-bK-c0q" id="3A4-kt-h6e"/>
                         <outlet property="positionLabel" destination="4nl-pA-xTI" id="ML0-KZ-2eH"/>
                         <outlet property="positionText" destination="ag0-jt-PaS" id="XRs-zI-aIu"/>
@@ -216,6 +226,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="navigationbar.png" width="25" height="179"/>
         <image name="navigationbar.png" width="25" height="179"/>
         <image name="title_ad_image.png" width="640" height="248"/>
     </resources>

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JJNDetailViewController : UIViewController
+@interface JJNDetailViewController : UIViewController <UIScrollViewDelegate>
 
 @property (nonatomic, strong) NSArray *detailList;
 @property (nonatomic, strong) NSString *detialPlistName;
@@ -17,4 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *positionImage;
 @property (weak, nonatomic) IBOutlet UILabel *positionLabel;
 @property (weak, nonatomic) IBOutlet UITextView *positionText;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+
+@property (nonatomic, strong) NSString *urlStringPre;
 @end

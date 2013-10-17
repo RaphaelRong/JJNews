@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) NSArray *infoList;
 @property (nonatomic, strong) UIButton *fakeBackButton;
+@property (nonatomic, strong) UILabel *buttonPageLabel;
 
 @end
 
@@ -24,6 +25,21 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)sender {
+    
+    CGFloat pageWidth = self.detailScrollView.frame.size.width;
+    int page = floor((self.detailScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 2;
+    self.buttonPageLabel.text = [NSString stringWithFormat:@"%i/%lu", page, (unsigned long)self.infoList.count];
+    self.pageControl.currentPage = page - 1;
+}
+
+- (IBAction)pageControlPressed:(UIPageControl *)sender {
+    
+    NSInteger pageNum = sender.currentPage;
+    [self.detailScrollView scrollRectToVisible:CGRectMake(pageNum * 320, 0, 320, 140) animated:YES];
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -31,6 +47,7 @@
     self.infoList = self.detailList;
     
     self.detailScrollView.contentSize = CGSizeMake(self.infoList.count * 320, self.view.frame.size.height - 64);
+    self.detailScrollView.delegate = self;
     
     CGRect labelFrame = self.positionLabel.frame;
     CGRect imageFrame = self.positionImage.frame;
@@ -48,7 +65,7 @@
         UIImageView *aImage = [[UIImageView alloc] initWithFrame:CGRectMake(imageFrame.origin.x + (320 * i), imageFrame.origin.y, imageFrame.size.width, imageFrame.size.height)];
         aLabel.text = title;
         aText.text = detail;
-        [aImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@image/%@", URL, image]] placeholderImage:[UIImage imageNamed:@"title_name.png"]];
+        [aImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@image/%@", self.urlStringPre, image]] placeholderImage:[UIImage imageNamed:@"title_name.png"]];
         
         [self.detailScrollView addSubview:aLabel];
         [self.detailScrollView addSubview:aText];
@@ -60,11 +77,18 @@
     self.fakeBackButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     [self.fakeBackButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationController.navigationBar addSubview:self.fakeBackButton];
-    
+    self.buttonPageLabel = [[UILabel alloc] initWithFrame:CGRectMake(260, 0, 50, 44)];
+    self.buttonPageLabel.textColor = [UIColor whiteColor];
+    self.buttonPageLabel.textAlignment = NSTextAlignmentRight;
+    self.buttonPageLabel.text = [NSString stringWithFormat:@"1/%lu", (unsigned long)self.infoList.count];
+    self.pageControl.numberOfPages = self.infoList.count;
+    self.pageControl.currentPage = 0;
+    [self.navigationController.navigationBar addSubview:self.buttonPageLabel];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [self.buttonPageLabel removeFromSuperview];
     [self.fakeBackButton removeFromSuperview];
 }
 
