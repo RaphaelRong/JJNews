@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140F1083180FD11E00F2F55C /* 80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 140F1080180FD11E00F2F55C /* 80x80.png */; };
+		140F1084180FD11E00F2F55C /* 58X58.png in Resources */ = {isa = PBXBuildFile; fileRef = 140F1081180FD11E00F2F55C /* 58X58.png */; };
+		140F1085180FD11E00F2F55C /* 120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 140F1082180FD11E00F2F55C /* 120x120.png */; };
 		147153C81803FFBF00B31F5B /* JJNLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147153C71803FFBF00B31F5B /* JJNLoadingViewController.m */; };
 		147153E71804242600B31F5B /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 147153D41804242600B31F5B /* MKAnnotationView+WebCache.m */; };
 		147153E81804242600B31F5B /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 147153D61804242600B31F5B /* SDImageCache.m */; };
@@ -49,6 +52,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		140F1080180FD11E00F2F55C /* 80x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 80x80.png; sourceTree = "<group>"; };
+		140F1081180FD11E00F2F55C /* 58X58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 58X58.png; sourceTree = "<group>"; };
+		140F1082180FD11E00F2F55C /* 120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 120x120.png; sourceTree = "<group>"; };
 		147153C61803FFBF00B31F5B /* JJNLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJNLoadingViewController.h; sourceTree = "<group>"; };
 		147153C71803FFBF00B31F5B /* JJNLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJNLoadingViewController.m; sourceTree = "<group>"; };
 		147153D31804242600B31F5B /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -197,6 +203,9 @@
 		64AA8605180122F7008B5E85 /* JJNews */ = {
 			isa = PBXGroup;
 			children = (
+				140F1080180FD11E00F2F55C /* 80x80.png */,
+				140F1081180FD11E00F2F55C /* 58X58.png */,
+				140F1082180FD11E00F2F55C /* 120x120.png */,
 				14A2B9621803A3F4003235E2 /* Util */,
 				64AA863418012824008B5E85 /* resource */,
 				64AA860E180122F7008B5E85 /* JJNAppDelegate.h */,
@@ -333,10 +342,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				64AA8636180128C1008B5E85 /* navigationbar.png in Resources */,
+				140F1085180FD11E00F2F55C /* 120x120.png in Resources */,
 				64AA860A180122F7008B5E85 /* InfoPlist.strings in Resources */,
+				140F1083180FD11E00F2F55C /* 80x80.png in Resources */,
 				64AA863818012AD9008B5E85 /* title_name.png in Resources */,
 				14E91840180FC4460039BC6E /* image.xcassets in Resources */,
 				64AA8613180122F7008B5E85 /* Main.storyboard in Resources */,
+				140F1084180FD11E00F2F55C /* 58X58.png in Resources */,
 				147153F318051C8800B31F5B /* infoList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
