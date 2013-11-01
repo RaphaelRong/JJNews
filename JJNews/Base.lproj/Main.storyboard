@@ -227,7 +227,6 @@
     </scenes>
     <resources>
         <image name="navigationbar.png" width="25" height="179"/>
-        <image name="navigationbar.png" width="25" height="179"/>
         <image name="title_ad_image.png" width="640" height="248"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
