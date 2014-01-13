@@ -11,7 +11,7 @@
 @interface JJNViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *indexTitleLabel;
-@property (weak, nonatomic) IBOutlet UIPageControl *indexControl;
+@property (weak, nonatomic) IBOutlet UIPageControl *indexControl; 
 @property (weak, nonatomic) IBOutlet UIScrollView *indexScrollView;
 @property (weak, nonatomic) IBOutlet UITableView *indexTable;
 
