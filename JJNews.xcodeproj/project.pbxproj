@@ -10,6 +10,7 @@
 		140F1083180FD11E00F2F55C /* 80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 140F1080180FD11E00F2F55C /* 80x80.png */; };
 		140F1084180FD11E00F2F55C /* 58X58.png in Resources */ = {isa = PBXBuildFile; fileRef = 140F1081180FD11E00F2F55C /* 58X58.png */; };
 		140F1085180FD11E00F2F55C /* 120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 140F1082180FD11E00F2F55C /* 120x120.png */; };
+		14135560188390C6000E6F77 /* JJNewsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1413555F188390C6000E6F77 /* JJNewsTests.m */; };
 		147153C81803FFBF00B31F5B /* JJNLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147153C71803FFBF00B31F5B /* JJNLoadingViewController.m */; };
 		147153E71804242600B31F5B /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 147153D41804242600B31F5B /* MKAnnotationView+WebCache.m */; };
 		147153E81804242600B31F5B /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 147153D61804242600B31F5B /* SDImageCache.m */; };
@@ -37,7 +38,6 @@
 		64AA8620180122F7008B5E85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AA85FF180122F7008B5E85 /* Foundation.framework */; };
 		64AA8621180122F7008B5E85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AA8603180122F7008B5E85 /* UIKit.framework */; };
 		64AA8629180122F7008B5E85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64AA8627180122F7008B5E85 /* InfoPlist.strings */; };
-		64AA862B180122F7008B5E85 /* JJNewsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AA862A180122F7008B5E85 /* JJNewsTests.m */; };
 		64AA8636180128C1008B5E85 /* navigationbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA8635180128C1008B5E85 /* navigationbar.png */; };
 		64AA863818012AD9008B5E85 /* title_name.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA863718012AD9008B5E85 /* title_name.png */; };
 /* End PBXBuildFile section */
@@ -56,6 +56,7 @@
 		140F1080180FD11E00F2F55C /* 80x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 80x80.png; sourceTree = "<group>"; };
 		140F1081180FD11E00F2F55C /* 58X58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 58X58.png; sourceTree = "<group>"; };
 		140F1082180FD11E00F2F55C /* 120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 120x120.png; sourceTree = "<group>"; };
+		1413555F188390C6000E6F77 /* JJNewsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJNewsTests.m; sourceTree = "<group>"; };
 		147153C61803FFBF00B31F5B /* JJNLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJNLoadingViewController.h; sourceTree = "<group>"; };
 		147153C71803FFBF00B31F5B /* JJNLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJNLoadingViewController.m; sourceTree = "<group>"; };
 		147153D31804242600B31F5B /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 		64AA861E180122F7008B5E85 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		64AA8626180122F7008B5E85 /* JJNewsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JJNewsTests-Info.plist"; sourceTree = "<group>"; };
 		64AA8628180122F7008B5E85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		64AA862A180122F7008B5E85 /* JJNewsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JJNewsTests.m; sourceTree = "<group>"; };
 		64AA8635180128C1008B5E85 /* navigationbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar.png; sourceTree = "<group>"; };
 		64AA863718012AD9008B5E85 /* title_name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_name.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,7 +242,7 @@
 		64AA8624180122F7008B5E85 /* JJNewsTests */ = {
 			isa = PBXGroup;
 			children = (
-				64AA862A180122F7008B5E85 /* JJNewsTests.m */,
+				1413555F188390C6000E6F77 /* JJNewsTests.m */,
 				64AA8625180122F7008B5E85 /* Supporting Files */,
 			);
 			path = JJNewsTests;
@@ -397,7 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64AA862B180122F7008B5E85 /* JJNewsTests.m in Sources */,
+				14135560188390C6000E6F77 /* JJNewsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +562,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "JJNewsTests/JJNewsTests-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -581,6 +582,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JJNews/JJNews-Prefix.pch";
 				INFOPLIST_FILE = "JJNewsTests/JJNewsTests-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

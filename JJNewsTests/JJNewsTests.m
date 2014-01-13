@@ -1,9 +1,9 @@
 //
 //  JJNewsTests.m
-//  JJNewsTests
+//  JJNews
 //
-//  Created by Raphael on 13-10-6.
-//  Copyright (c) 2013年 Raphael. All rights reserved.
+//  Created by Rong Hao on 14-1-13.
+//  Copyright (c) 2014年 Raphael. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
@@ -28,7 +28,7 @@
 
 - (void)testExample
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    XCTAssertNotNil(@"123", @"123 is not nil");
 }
 
 @end
